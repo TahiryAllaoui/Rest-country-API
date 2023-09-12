@@ -1,0 +1,45 @@
+.country {
+    width: calc(100% - 10rem);
+    height: 100%;
+
+    form {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .text-area {
+            gap: 1rem;
+            display: flex;
+            align-items: center;
+            height: 3rem;
+            border: 1px solid #f1f1f1;
+            background-color: #f1f1f1;
+            width: 30%;
+            padding-left: 1rem;
+            border-radius: 6px;
+
+            .test {
+                font-size: larger;
+            }
+
+            input {
+                width: 100%;
+                background-color: transparent;
+                outline: none;
+                border: none;
+            }
+        }
+
+        .select {
+            width: 15%;
+            height: 3rem;
+            border-radius: 6px;
+            border: 1px solid #f1f1f1;
+            background-color: #f1f1f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+    }
+}

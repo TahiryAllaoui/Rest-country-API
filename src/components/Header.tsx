@@ -17,7 +17,6 @@ function Header() {
 
     const handleTheme = () => {
         themeContext.setDark(!themeContext.dark);
-        console.log(themeContext.dark);
     }
 
 
