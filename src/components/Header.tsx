@@ -1,15 +1,19 @@
 import { useContext } from 'react';
 import Theme from '../contexts/Theme';
 import '../style/Header.scss';
-import { CiDark } from 'react-icons/ci';
+import { CiDark, CiSun } from 'react-icons/ci';
 function Header() {
     const light = {
-        backgroundColor: 'rgb(241, 241, 241)',
-        color: 'rgb(39,39,39)'
+        backgroundColor: 'rgb(245, 245, 245)',
+        color: 'rgb(39,39,39)',
+        boxShadow: '0px 0px 5px 1px rgb(200, 198, 198)'
+
     }
     const dark = {
         backgroundColor: 'rgb(43, 55, 67)',
-        color: '#f1f1f1'
+        color: '#f5f5f5',
+        boxShadow: '0px 0px 5px 1px rgb(43, 44, 47)'
+
     }
 
     const themeContext = useContext(Theme);
@@ -26,8 +30,9 @@ function Header() {
             <div
                 className='theme-button'
                 onClick={handleTheme} >
-                <CiDark />
-                <span>Dark Mode</span></div>
+                {!themeContext.dark ? <CiDark /> : <CiSun />}
+                {!themeContext.dark ? <span>Dark Mode</span> : <span>Light Mode</span>}
+            </div>
         </div>
     )
 }
