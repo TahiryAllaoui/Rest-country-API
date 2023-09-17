@@ -3,14 +3,19 @@ import '../style/Country.scss';
 import { CiCircleChevDown, CiCircleChevUp, CiSearch } from 'react-icons/ci'
 import Theme from '../contexts/Theme';
 
+interface Country {
+
+}
+
 function Country() {
-    // const [data, setData] = useState([]);
-    // useEffect(() => {
-    //     fetch('localhost:8000/countries').then((res) => res.json()).then((data) => {
-    //         console.log(data)
-    //         setData(data);
-    //     })
-    // }, []);
+    const [data, setData] = useState<any>([]);
+
+    useEffect(() => {
+        fetch("http://localhost:8000/countries").then((res) => res.json()).then((data) => {
+            console.log(data)
+            setData(data);
+        }).catch((e) => console.log("FETCH ERROR: " + e))
+    }, [])
     const light = {
         backgroundColor: 'rgb(245, 245, 245)',
         color: 'rgb(39,39,39)',
@@ -36,14 +41,12 @@ function Country() {
             option.style.display = 'block';
             option.style.zIndex = '1';
             icon.style.transform = 'rotate(180deg)';
-            console.log("mipoitra")
         }
         else {
             let option = document.querySelector('.option') as HTMLElement;
             let icon = document.querySelector('.up-icon') as HTMLElement;
             option.style.display = 'none';
             icon.style.transform = 'rotate(180deg)';
-            console.log("nope")
         }
     };
     return (
@@ -53,7 +56,7 @@ function Country() {
                     <CiSearch className='search-icon' />
                     <input type="text" placeholder='Search for a country...' style={{ color: themeDark ? 'white' : 'black' }} />
                 </div>
-                <div className="select" style={themeDark ? dark : light} onClick={handleOpen}>
+                <div className="select" onClick={handleOpen}>
                     <div className="label" style={themeDark ? dark : light}>
                         <p>Filter by Region</p>
                         {open ? <CiCircleChevUp className='up-icon' /> : <CiCircleChevDown className='down-icon' />}
