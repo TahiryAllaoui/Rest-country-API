@@ -2,20 +2,41 @@ import { useContext, useEffect, useState } from 'react';
 import '../style/Country.scss';
 import { CiCircleChevDown, CiCircleChevUp, CiSearch } from 'react-icons/ci'
 import Theme from '../contexts/Theme';
+import CountryDatas, { CountryType } from '../contexts/CountryDatas';
 
 interface Country {
 
 }
 
 function Country() {
-    const [data, setData] = useState<any>([]);
+
+    const { countries, setCountries } = useContext(CountryDatas)
 
     useEffect(() => {
-        fetch("http://localhost:8000/countries").then((res) => res.json()).then((data) => {
-            console.log(data)
-            setData(data);
+        fetch("http://localhost:8000/countries").then((res) => res.json()).then((data: any) => {
+            const tmp: CountryType[] = [];
+            data.forEach((d: any) => {
+                let c: CountryType = {
+                    name: d.name,
+                    borderCountries: d.borders,
+                    capital: d.capital,
+                    currencies: d.currencies,
+                    languages: d.languages,
+                    nativeName: d.nativeName,
+                    population: d.population,
+                    region: d.region,
+                    subRegion: d.subregion,
+                    topLevelDomain: d.topLevelDomain
+                }
+                tmp.push(c);
+            }
+            )
+
+            setCountries(tmp);
+
         }).catch((e) => console.log("FETCH ERROR: " + e))
-    }, [])
+    }, []);
+
     const light = {
         backgroundColor: 'rgb(245, 245, 245)',
         color: 'rgb(39,39,39)',
@@ -71,7 +92,9 @@ function Country() {
                 </div>
             </form>
             <div className="country-item">
-
+                {
+                    countries.map((item) => <p>{item.name}</p>)
+                }
             </div>
         </div>
     )
