@@ -91,9 +91,23 @@ function Country() {
                     </div>
                 </div>
             </form>
-            <div className="country-item">
+            <div className="country-item" style={themeDark ? {
+                backgroundColor: 'transparent', color: '#f5f5f5',
+                border: 'none'
+            } : {
+                backgroundColor: 'transparent', color: 'rgb(39,39,39)',
+                border: 'none'
+            }}>
                 {
-                    countries.map((item) => <p>{item.name}</p>)
+                    countries.map((item) => <div key={item.name} className='country-card'>
+                        <div className="flag" style={{ width: '100%', height: '50%', border: '1px solid black' }}></div>
+                        <div className="description">
+                            <h2>{item.name}</h2>
+                            <p>Population:  <span style={{ color: themeDark ? 'rgb(174, 174, 174)' : 'rgb(130,130,130)' }}>{item.population.toLocaleString()}</span> </p>
+                            <p>Region:  <span style={{ color: themeDark ? 'rgb(174, 174, 174)' : 'rgb(130,130,130)' }}>{item.region}</span> </p>
+                            <p>Capital: <span style={{ color: themeDark ? 'rgb(174, 174, 174)' : 'rgb(130,130,130)' }}>{item.capital}</span> </p>
+                        </div>
+                    </div>)
                 }
             </div>
         </div>
