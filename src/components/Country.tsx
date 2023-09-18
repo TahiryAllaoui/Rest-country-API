@@ -70,6 +70,15 @@ function Country() {
             icon.style.transform = 'rotate(180deg)';
         }
     };
+
+    //Filter rendering
+    const [filter, setFilter] = useState('All');
+    const handleFilter = (e: React.MouseEvent<HTMLParagraphElement>) => {
+        setFilter(e.currentTarget.textContent!.toString());
+    };
+
+
+
     return (
         <div className='country' >
             <form>
@@ -83,11 +92,13 @@ function Country() {
                         {open ? <CiCircleChevUp className='up-icon' /> : <CiCircleChevDown className='down-icon' />}
                     </div>
                     <div className="option" style={themeDark ? dark : light}>
-                        <p>Africa</p>
-                        <p>America</p>
-                        <p>Asia</p>
-                        <p>Europe</p>
-                        <p>Oceania</p>
+                        <p onClick={(e) => handleFilter(e)} style={{ color: 'gray', borderBottom: '1px solid gray' }}>All</p>
+                        <p onClick={(e) => handleFilter(e)} >Africa</p>
+                        <p onClick={(e) => handleFilter(e)} >Americas</p>
+                        <p onClick={(e) => handleFilter(e)} >Asia</p>
+                        <p onClick={(e) => handleFilter(e)} >Europe</p>
+                        <p onClick={(e) => handleFilter(e)} >Oceania</p>
+                        <p onClick={(e) => handleFilter(e)} >Polar</p>
                     </div>
                 </div>
             </form>
@@ -99,7 +110,15 @@ function Country() {
                 border: 'none'
             }}>
                 {
-                    countries.map((item) => <div key={item.name} className='country-card'>
+                    filter == 'All' ? countries.map((item) => <div key={item.name} className='country-card' style={themeDark ? dark : light}>
+                        <div className="flag" style={{ width: '100%', height: '50%', border: '1px solid black' }}></div>
+                        <div className="description">
+                            <h2>{item.name}</h2>
+                            <p>Population:  <span style={{ color: themeDark ? 'rgb(174, 174, 174)' : 'rgb(130,130,130)' }}>{item.population.toLocaleString()}</span> </p>
+                            <p>Region:  <span style={{ color: themeDark ? 'rgb(174, 174, 174)' : 'rgb(130,130,130)' }}>{item.region}</span> </p>
+                            <p>Capital: <span style={{ color: themeDark ? 'rgb(174, 174, 174)' : 'rgb(130,130,130)' }}>{item.capital}</span> </p>
+                        </div>
+                    </div>) : countries.filter((country) => country.region == filter).map((item) => <div key={item.name} className='country-card' style={themeDark ? dark : light}>
                         <div className="flag" style={{ width: '100%', height: '50%', border: '1px solid black' }}></div>
                         <div className="description">
                             <h2>{item.name}</h2>
@@ -115,3 +134,13 @@ function Country() {
 }
 
 export default Country
+
+// countries.filter((country) => country.region == filter).map((item) => <div key={item.name} className='country-card' style={themeDark ? dark : light}>
+// <div className="flag" style={{ width: '100%', height: '50%', border: '1px solid black' }}></div>
+// <div className="description">
+//     <h2>{item.name}</h2>
+//     <p>Population:  <span style={{ color: themeDark ? 'rgb(174, 174, 174)' : 'rgb(130,130,130)' }}>{item.population.toLocaleString()}</span> </p>
+//     <p>Region:  <span style={{ color: themeDark ? 'rgb(174, 174, 174)' : 'rgb(130,130,130)' }}>{item.region}</span> </p>
+//     <p>Capital: <span style={{ color: themeDark ? 'rgb(174, 174, 174)' : 'rgb(130,130,130)' }}>{item.capital}</span> </p>
+// </div>
+// </div>)
