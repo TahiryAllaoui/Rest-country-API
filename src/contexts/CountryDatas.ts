@@ -12,6 +12,8 @@ export interface CountryType {
     currencies: string;
     languages: string[];
     borderCountries: string[];
+    code3Name: string;
+    bordersNames: string[];
 };
 
 export interface ICountryType {
