@@ -1,13 +1,3 @@
-@keyframes grow {
-    from {
-        transform: scale(100%);
-    }
-
-    to {
-        transform: scale(105%);
-    }
-}
-
 .country {
     width: calc(100% - 10rem);
     height: 100%;
@@ -115,14 +105,19 @@
         justify-content: center;
         align-items: center;
         gap: 2rem;
-        transform: scale(100%);
-        transition: transform 300ms;
+
 
         .country-card {
             width: 15rem;
             height: 20rem;
             border-radius: 8px;
             cursor: pointer;
+            transform: scale(1);
+            transition: transform 300ms;
+
+            &:hover {
+                transform: scale(1.05);
+            }
 
             .flag {
 
@@ -144,9 +139,6 @@
                 }
             }
 
-            &:hover {
-                animation: grow 300ms forwards;
-            }
         }
     }
 }

@@ -18,6 +18,7 @@ function Country() {
             data.forEach((d: any) => {
                 let c: CountryType = {
                     name: d.name,
+                    flag: d.flag,
                     borderCountries: d.borders,
                     capital: d.capital,
                     currencies: d.currencies,
@@ -77,14 +78,18 @@ function Country() {
         setFilter(e.currentTarget.textContent!.toString());
     };
 
-
-
+    //Search input
+    const [search, setSearch] = useState('');
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        let tmp = e.currentTarget.value.charAt(0).toUpperCase() + e.currentTarget.value.slice(1);
+        setSearch(tmp);
+    };
     return (
         <div className='country' >
             <form>
                 <div className="text-area" style={themeDark ? dark : light}>
                     <CiSearch className='search-icon' />
-                    <input type="text" placeholder='Search for a country...' style={{ color: themeDark ? 'white' : 'black' }} />
+                    <input onChange={(e) => handleChange(e)} type="text" placeholder='Search for a country...' style={{ color: themeDark ? 'white' : 'black' }} />
                 </div>
                 <div className="select" onClick={handleOpen}>
                     <div className="label" style={themeDark ? dark : light}>
@@ -110,37 +115,28 @@ function Country() {
                 border: 'none'
             }}>
                 {
-                    filter == 'All' ? countries.map((item) => <div key={item.name} className='country-card' style={themeDark ? dark : light}>
-                        <div className="flag" style={{ width: '100%', height: '50%', border: '1px solid black' }}></div>
-                        <div className="description">
-                            <h2>{item.name}</h2>
-                            <p>Population:  <span style={{ color: themeDark ? 'rgb(174, 174, 174)' : 'rgb(130,130,130)' }}>{item.population.toLocaleString()}</span> </p>
-                            <p>Region:  <span style={{ color: themeDark ? 'rgb(174, 174, 174)' : 'rgb(130,130,130)' }}>{item.region}</span> </p>
-                            <p>Capital: <span style={{ color: themeDark ? 'rgb(174, 174, 174)' : 'rgb(130,130,130)' }}>{item.capital}</span> </p>
-                        </div>
-                    </div>) : countries.filter((country) => country.region == filter).map((item) => <div key={item.name} className='country-card' style={themeDark ? dark : light}>
-                        <div className="flag" style={{ width: '100%', height: '50%', border: '1px solid black' }}></div>
-                        <div className="description">
-                            <h2>{item.name}</h2>
-                            <p>Population:  <span style={{ color: themeDark ? 'rgb(174, 174, 174)' : 'rgb(130,130,130)' }}>{item.population.toLocaleString()}</span> </p>
-                            <p>Region:  <span style={{ color: themeDark ? 'rgb(174, 174, 174)' : 'rgb(130,130,130)' }}>{item.region}</span> </p>
-                            <p>Capital: <span style={{ color: themeDark ? 'rgb(174, 174, 174)' : 'rgb(130,130,130)' }}>{item.capital}</span> </p>
-                        </div>
-                    </div>)
+                    // filter == 'All' ? countries.map((item) => <div key={item.name} className='country-card' style={themeDark ? dark : light}>
+                    //     <div className="flag" style={{ width: '100%', height: '50%', border: '1px solid black' }}></div>
+                    //     <div className="description">
+                    //         <h2>{item.name}</h2>
+                    //         <p>Population:  <span style={{ color: themeDark ? 'rgb(174, 174, 174)' : 'rgb(130,130,130)' }}>{item.population.toLocaleString()}</span> </p>
+                    //         <p>Region:  <span style={{ color: themeDark ? 'rgb(174, 174, 174)' : 'rgb(130,130,130)' }}>{item.region}</span> </p>
+                    //         <p>Capital: <span style={{ color: themeDark ? 'rgb(174, 174, 174)' : 'rgb(130,130,130)' }}>{item.capital}</span> </p>
+                    //     </div>
+                    // </div>) : countries.filter((country) => country.region == filter).map((item) => <div key={item.name} className='country-card' style={themeDark ? dark : light}>
+                    //     <div className="flag" style={{ width: '100%', height: '50%', border: '1px solid black', backgroundImage: `url(${item.flag})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}></div>
+                    //     <div className="description">
+                    //         <h2>{item.name}</h2>
+                    //         <p>Population:  <span style={{ color: themeDark ? 'rgb(174, 174, 174)' : 'rgb(130,130,130)' }}>{item.population.toLocaleString()}</span> </p>
+                    //         <p>Region:  <span style={{ color: themeDark ? 'rgb(174, 174, 174)' : 'rgb(130,130,130)' }}>{item.region}</span> </p>
+                    //         <p>Capital: <span style={{ color: themeDark ? 'rgb(174, 174, 174)' : 'rgb(130,130,130)' }}>{item.capital}</span> </p>
+                    //     </div>
+                    // </div>)
+
                 }
             </div>
         </div>
     )
 }
 
-export default Country
-
-// countries.filter((country) => country.region == filter).map((item) => <div key={item.name} className='country-card' style={themeDark ? dark : light}>
-// <div className="flag" style={{ width: '100%', height: '50%', border: '1px solid black' }}></div>
-// <div className="description">
-//     <h2>{item.name}</h2>
-//     <p>Population:  <span style={{ color: themeDark ? 'rgb(174, 174, 174)' : 'rgb(130,130,130)' }}>{item.population.toLocaleString()}</span> </p>
-//     <p>Region:  <span style={{ color: themeDark ? 'rgb(174, 174, 174)' : 'rgb(130,130,130)' }}>{item.region}</span> </p>
-//     <p>Capital: <span style={{ color: themeDark ? 'rgb(174, 174, 174)' : 'rgb(130,130,130)' }}>{item.capital}</span> </p>
-// </div>
-// </div>)
+export default Country;

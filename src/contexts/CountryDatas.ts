@@ -2,6 +2,7 @@ import { createContext } from "react";
 
 export interface CountryType {
     name: string;
+    flag: string;
     nativeName: string;
     population: number;
     region: string;
