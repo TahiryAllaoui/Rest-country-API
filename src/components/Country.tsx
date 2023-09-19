@@ -4,6 +4,7 @@ import CountryDatas from '../contexts/CountryDatas';
 import IndexContext from '../contexts/IndexContext';
 import Theme from '../contexts/Theme';
 import '../style/Country.scss';
+import { Link } from 'react-router-dom';
 
 interface Country {
 
@@ -97,7 +98,7 @@ function Country() {
                 border: 'none'
             }}>
                 {
-                    filter == 'All' ? countries.map((item, index) => item.name.includes(search) && <div key={item.name} className='country-card' style={themeDark ? dark : light} onClick={() => handleCard(index)}>
+                    filter == 'All' ? countries.map((item, index) => item.name.includes(search) && <Link to={"/countries/" + item.code3Name} key={item.name} className='country-card' style={themeDark ? dark : light} onClick={() => handleCard(index)}>
                         <div className="flag" style={{ width: '100%', height: '50%', border: '1px solid black' }}></div>
                         <div className="description">
                             <h2>{item.name}</h2>
@@ -105,7 +106,7 @@ function Country() {
                             <p>Region:  <span style={{ color: themeDark ? 'rgb(174, 174, 174)' : 'rgb(130,130,130)' }}>{item.region}</span> </p>
                             <p>Capital: <span style={{ color: themeDark ? 'rgb(174, 174, 174)' : 'rgb(130,130,130)' }}>{item.capital}</span> </p>
                         </div>
-                    </div>) : countries.filter((country) => country.region == filter).map((item, index) => item.name.includes(search) && <div key={item.name} className='country-card' style={themeDark ? dark : light} onClick={() => handleCard(index)}>
+                    </Link>) : countries.filter((country) => country.region == filter).map((item, index) => item.name.includes(search) && <div key={item.name} className='country-card' style={themeDark ? dark : light} onClick={() => handleCard(index)}>
                         <div className="flag" style={{ width: '100%', height: '50%', border: '1px solid black', backgroundImage: `url(${item.flag})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}></div>
                         <div className="description">
                             <h2>{item.name}</h2>

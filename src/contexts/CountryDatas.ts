@@ -9,7 +9,7 @@ export interface CountryType {
     subRegion: string;
     capital: string;
     topLevelDomain: string;
-    currencies: string;
+    currencies: string[];
     languages: string[];
     borderCountries: string[];
     code3Name: string;

@@ -26,13 +26,19 @@ function App() {
     fetch("http://localhost:8000/countries").then((res) => res.json()).then((data: any) => {
       const tmp: CountryType[] = [];
       data.forEach((d: any) => {
+        const currencies: string[] = [];
+        d.currencies?.forEach((c: any) => currencies.push(c.name))
+
+        const languages: string[] = [];
+        d.languages?.forEach((c: any) => languages.push(c.name))
+
         let c: CountryType = {
           name: d.name,
           flag: d.flag,
           borderCountries: d.borders,
           capital: d.capital,
-          currencies: d.currencies,
-          languages: d.languages,
+          currencies: currencies,
+          languages: languages,
           nativeName: d.nativeName,
           population: d.population,
           region: d.region,
@@ -65,7 +71,7 @@ function App() {
         {/* <Country /> */}
         <Routes>
           <Route path='/' element={<Country />} />
-          <Route path={`${countries[index].name}`} element={<Summary />} />
+          <Route path={"/countries/:id"} element={<Summary />} />
         </Routes>
       </div>
     </BrowserRouter>
