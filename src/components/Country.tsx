@@ -1,8 +1,9 @@
-import { useContext, useEffect, useState } from 'react';
-import '../style/Country.scss';
-import { CiCircleChevDown, CiCircleChevUp, CiSearch } from 'react-icons/ci'
+import { useContext, useState } from 'react';
+import { CiCircleChevDown, CiCircleChevUp, CiSearch } from 'react-icons/ci';
+import CountryDatas from '../contexts/CountryDatas';
+import IndexContext from '../contexts/IndexContext';
 import Theme from '../contexts/Theme';
-import CountryDatas, { CountryType } from '../contexts/CountryDatas';
+import '../style/Country.scss';
 
 interface Country {
 
@@ -10,43 +11,6 @@ interface Country {
 
 function Country() {
 
-    const { countries, setCountries } = useContext(CountryDatas)
-
-    useEffect(() => {
-        fetch("http://localhost:8000/countries").then((res) => res.json()).then((data: any) => {
-            const tmp: CountryType[] = [];
-            data.forEach((d: any) => {
-                let c: CountryType = {
-                    name: d.name,
-                    flag: d.flag,
-                    borderCountries: d.borders,
-                    capital: d.capital,
-                    currencies: d.currencies,
-                    languages: d.languages,
-                    nativeName: d.nativeName,
-                    population: d.population,
-                    region: d.region,
-                    subRegion: d.subregion,
-                    topLevelDomain: d.topLevelDomain,
-                    code3Name: d.alpha3Code,
-                    bordersNames: []
-                }
-                tmp.push(c);
-            }
-            )
-            tmp.forEach((country: CountryType) => {
-                if (country.borderCountries != undefined) {
-                    for (let i = 0; i < tmp.length; i++) {
-                        if (country.borderCountries.includes(tmp[i].code3Name)) {
-                            country.bordersNames.push(tmp[i].name);
-                        }
-                        if (country.borderCountries.length == country.bordersNames.length) break;
-                    }
-                }
-            })
-            setCountries(tmp);
-        }).catch((e) => console.log("FETCH ERROR: " + e))
-    }, []);
 
     const light = {
         backgroundColor: 'rgb(245, 245, 245)',
@@ -61,7 +25,9 @@ function Country() {
         boxShadow: '0px 0px 5px 1px rgb(43, 44, 47)'
     };
 
+    const countries = useContext(CountryDatas).countries;
     const themeDark = useContext(Theme).dark;
+    const setIndex = useContext(IndexContext).setIndex;
 
     //Filter button
     const [open, setOpen] = useState(false);
@@ -94,6 +60,12 @@ function Country() {
         let tmp = e.currentTarget.value.charAt(0).toUpperCase() + e.currentTarget.value.slice(1);
         setSearch(tmp);
     };
+
+    //Cards click
+    const handleCard = (i: number) => {
+        setIndex(i);
+    };
+
     return (
         <div className='country' >
             <form>
@@ -125,7 +97,7 @@ function Country() {
                 border: 'none'
             }}>
                 {
-                    filter == 'All' ? countries.map((item) => item.name.includes(search) && <div key={item.name} className='country-card' style={themeDark ? dark : light}>
+                    filter == 'All' ? countries.map((item, index) => item.name.includes(search) && <div key={item.name} className='country-card' style={themeDark ? dark : light} onClick={() => handleCard(index)}>
                         <div className="flag" style={{ width: '100%', height: '50%', border: '1px solid black' }}></div>
                         <div className="description">
                             <h2>{item.name}</h2>
@@ -133,7 +105,7 @@ function Country() {
                             <p>Region:  <span style={{ color: themeDark ? 'rgb(174, 174, 174)' : 'rgb(130,130,130)' }}>{item.region}</span> </p>
                             <p>Capital: <span style={{ color: themeDark ? 'rgb(174, 174, 174)' : 'rgb(130,130,130)' }}>{item.capital}</span> </p>
                         </div>
-                    </div>) : countries.filter((country) => country.region == filter).map((item) => item.name.includes(search) && <div key={item.name} className='country-card' style={themeDark ? dark : light}>
+                    </div>) : countries.filter((country) => country.region == filter).map((item, index) => item.name.includes(search) && <div key={item.name} className='country-card' style={themeDark ? dark : light} onClick={() => handleCard(index)}>
                         <div className="flag" style={{ width: '100%', height: '50%', border: '1px solid black', backgroundImage: `url(${item.flag})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}></div>
                         <div className="description">
                             <h2>{item.name}</h2>
