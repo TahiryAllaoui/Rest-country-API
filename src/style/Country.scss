@@ -108,6 +108,7 @@
 
 
         .country-card {
+            text-decoration: none;
             width: 15rem;
             height: 20rem;
             border-radius: 8px;
@@ -120,7 +121,9 @@
             }
 
             .flag {
-
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
                 border-radius: 8px;
             }
 

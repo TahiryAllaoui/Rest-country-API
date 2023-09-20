@@ -1,7 +1,6 @@
 import { useContext, useState } from 'react';
 import { CiCircleChevDown, CiCircleChevUp, CiSearch } from 'react-icons/ci';
 import CountryDatas from '../contexts/CountryDatas';
-import IndexContext from '../contexts/IndexContext';
 import Theme from '../contexts/Theme';
 import '../style/Country.scss';
 import { Link } from 'react-router-dom';
@@ -28,7 +27,6 @@ function Country() {
 
     const countries = useContext(CountryDatas).countries;
     const themeDark = useContext(Theme).dark;
-    const setIndex = useContext(IndexContext).setIndex;
 
     //Filter button
     const [open, setOpen] = useState(false);
@@ -62,11 +60,6 @@ function Country() {
         setSearch(tmp);
     };
 
-    //Cards click
-    const handleCard = (i: number) => {
-        setIndex(i);
-    };
-
     return (
         <div className='country' >
             <form>
@@ -98,23 +91,23 @@ function Country() {
                 border: 'none'
             }}>
                 {
-                    filter == 'All' ? countries.map((item, index) => item.name.includes(search) && <Link to={"/countries/" + item.code3Name} key={item.name} className='country-card' style={themeDark ? dark : light} onClick={() => handleCard(index)}>
-                        <div className="flag" style={{ width: '100%', height: '50%', border: '1px solid black' }}></div>
+                    filter == 'All' ? countries.map((item) => item.name.includes(search) && <Link to={"/countries/" + item.code3Name} key={item.name} className='country-card' style={themeDark ? dark : light} >
+                        <div className="flag" style={{ width: '100%', height: '50%', backgroundImage: `url(${item.flag})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }} ></div>
                         <div className="description">
                             <h2>{item.name}</h2>
                             <p>Population:  <span style={{ color: themeDark ? 'rgb(174, 174, 174)' : 'rgb(130,130,130)' }}>{item.population.toLocaleString()}</span> </p>
                             <p>Region:  <span style={{ color: themeDark ? 'rgb(174, 174, 174)' : 'rgb(130,130,130)' }}>{item.region}</span> </p>
                             <p>Capital: <span style={{ color: themeDark ? 'rgb(174, 174, 174)' : 'rgb(130,130,130)' }}>{item.capital}</span> </p>
                         </div>
-                    </Link>) : countries.filter((country) => country.region == filter).map((item, index) => item.name.includes(search) && <div key={item.name} className='country-card' style={themeDark ? dark : light} onClick={() => handleCard(index)}>
-                        <div className="flag" style={{ width: '100%', height: '50%', border: '1px solid black', backgroundImage: `url(${item.flag})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}></div>
+                    </Link>) : countries.filter((country) => country.region == filter).map((item) => item.name.includes(search) && <Link to={"/countries/" + item.code3Name} key={item.name} className='country-card' style={themeDark ? dark : light} >
+                        <div className="flag" style={{ width: '100%', height: '50%', backgroundImage: `url(${item.flag})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}></div>
                         <div className="description">
                             <h2>{item.name}</h2>
                             <p>Population:  <span style={{ color: themeDark ? 'rgb(174, 174, 174)' : 'rgb(130,130,130)' }}>{item.population.toLocaleString()}</span> </p>
                             <p>Region:  <span style={{ color: themeDark ? 'rgb(174, 174, 174)' : 'rgb(130,130,130)' }}>{item.region}</span> </p>
                             <p>Capital: <span style={{ color: themeDark ? 'rgb(174, 174, 174)' : 'rgb(130,130,130)' }}>{item.capital}</span> </p>
                         </div>
-                    </div>)
+                    </Link>)
                 }
             </div>
         </div>

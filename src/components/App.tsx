@@ -1,7 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import CountryDatas, { CountryType } from '../contexts/CountryDatas';
-import IndexContext from '../contexts/IndexContext';
 import Theme from '../contexts/Theme';
 import '../style/App.scss';
 import Country from './Country';
@@ -19,8 +18,7 @@ function App() {
   };
 
   const themeDark = useContext(Theme).dark;
-  const { countries, setCountries } = useContext(CountryDatas)
-  const index = useContext(IndexContext).index;
+  const setCountries = useContext(CountryDatas).setCountries
 
   useEffect(() => {
     fetch("http://localhost:8000/countries").then((res) => res.json()).then((data: any) => {
