@@ -82,9 +82,11 @@ function Summary() {
                     </div>
                     <div className="border">
                         <p>Border Countries: </p>
-                        {currCountry.bordersNames.map((item) => <div onClick={clicked} key={item} className='boundaries' style={themeDark ? dark : light}>
-                            <div>{item}</div>
-                        </div>)}
+                        <div className="b-countries">
+                            {currCountry.bordersNames.map((item) => <div onClick={clicked} key={item} className='boundaries' style={themeDark ? dark : light}>
+                                <div>{item}</div>
+                            </div>)}
+                        </div>
                     </div>
                 </div>
             </div>

@@ -73,7 +73,7 @@ function Country() {
                         {open ? <CiCircleChevUp className='up-icon' /> : <CiCircleChevDown className='down-icon' />}
                     </div>
                     <div className="option" style={themeDark ? dark : light}>
-                        <p onClick={(e) => handleFilter(e)} style={{ color: 'gray', borderBottom: '1px solid gray' }}>All</p>
+                        <p onClick={(e) => handleFilter(e)} style={{ color: '#bdbdbd', borderBottom: '1px solid #bdbdbd' }}>All</p>
                         <p onClick={(e) => handleFilter(e)} >Africa</p>
                         <p onClick={(e) => handleFilter(e)} >Americas</p>
                         <p onClick={(e) => handleFilter(e)} >Asia</p>

@@ -11,6 +11,11 @@
         align-items: flex-start;
         justify-content: space-between;
 
+        @media (max-width: 428px) {
+            gap: 2rem;
+            flex-direction: column;
+        }
+
         .text-area {
             gap: 1rem;
             display: flex;
@@ -21,6 +26,10 @@
             width: 30%;
             padding-left: 1rem;
             border-radius: 6px;
+
+            @media (max-width: 428px) {
+                width: 93%;
+            }
 
             .search-icon {
                 font-size: x-large;
@@ -46,6 +55,10 @@
             justify-content: space-evenly;
             gap: 5px;
 
+            @media (max-width: 428px) {
+                width: 100%;
+            }
+
             &:hover {
                 background-color: #f1f1f1;
             }
@@ -67,11 +80,6 @@
                     font-weight: 600;
                 }
 
-                .down-icon,
-                .up-icon {
-                    // transform: rotate(0deg);
-                    transition: transform 300ms;
-                }
             }
 
             .option {
@@ -83,6 +91,11 @@
                 position: absolute;
                 top: 10.25rem;
                 width: inherit;
+
+                @media (max-width: 428px) {
+                    top: 15.25rem;
+                    width: calc(100% - 10rem);
+                }
 
                 p {
                     cursor: pointer;

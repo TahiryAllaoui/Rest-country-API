@@ -23,3 +23,18 @@
         font-size: large;
     }
 }
+
+@media (max-width: 428px) {
+    .theme-header {
+
+        h2 {
+            font-size: medium;
+            margin: 0 1rem;
+        }
+
+        .theme-button {
+            font-size: medium;
+            margin: 0 1rem;
+        }
+    }
+}
