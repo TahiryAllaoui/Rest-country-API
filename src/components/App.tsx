@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import CountryDatas, { CountryType } from '../contexts/CountryDatas';
 import Theme from '../contexts/Theme';
